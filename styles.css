@@ -1,0 +1,50 @@
+
+        body {
+            background-image: url('background.png');
+            background-size: cover;
+            font-family: Helvetica, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #f9f5d7c5;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        #tries {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        #result {
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            width: 200px;
+            height: 30px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            width: 100px;
+            height: 40px;
+            font-size: 18px;
+            background-color: #ffa62b;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }

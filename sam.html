@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bulls and Cows Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+      <center>
+        <h1>Guess the 4-digit Number</h1>
+        <div id="tries">Number of Tries: 5</div>
+        <input type="text" id="guess" placeholder="Enter your guess (4-digit number)">
+        <br>
+        <button onclick="checkGuess()">Check</button>
+        <div id="result"></div>
+      </center>
+    </div>
+
+    <script>
+        function getDigits(num) {
+            return String(num).split('').map(Number);
+        }
+
+        function noDuplicates(num) {
+            const numList = getDigits(num);
+            return new Set(numList).size === numList.length;
+        }
+
+        function generateNum() {
+            let num;
+            do {
+                num = Math.floor(Math.random() * 9000) + 1000;
+            } while (!noDuplicates(num));
+            return num;
+        }
+
+        let secretNum = generateNum();
+        let tries = 5;
+
+        function numOfBullsCows(num, guess) {
+            let bulls = 0;
+            let cows = 0;
+            const numList = getDigits(num);
+            const guessList = getDigits(guess);
+
+            guessList.forEach((digit, index) => {
+                if (digit === numList[index]) {
+                    bulls++;
+                } else if (numList.includes(digit)) {
+                    cows++;
+                }
+            });
+
+            return [bulls, cows];
+        }
+
+        function checkGuess() {
+            const guess = parseInt(document.getElementById('guess').value);
+
+            if (isNaN(guess) || guess < 1000 || guess > 9999 || !noDuplicates(guess)) {
+                alert("Invalid Guess! Enter a 4-digit number without repeated digits and between >1000 & <9999.");
+                return;
+            }
+
+            const bullCow = numOfBullsCows(secretNum, guess);
+            document.getElementById('result').innerText = `${bullCow[0]} bulls, ${bullCow[1]} cows`;
+
+            if (bullCow[0] === 4) {
+                alert("Congratulations! You guessed right!");
+                location.reload();
+            }
+
+            tries--;
+            document.getElementById('tries').innerText = `Number of Tries: ${tries}`;
+
+            if (tries === 0) {
+                alert(`Game Over! You ran out of tries. The number was ${secretNum}`);
+                location.reload();
+            }
+        }
+    </script>
+</body>
+</html>
